@@ -1,0 +1,46 @@
+class Solution {
+public:
+    string smallestSubsequence(string s, string res = "") {
+        int cnt[26] = {}, used[26] = {};
+        for (auto ch : s) ++cnt[ch - 'a'];
+        for (auto ch : s) {
+            
+            --cnt[ch - 'a'];
+            if (used[ch - 'a']++ > 0) continue;
+            while (!res.empty() && res.back() > ch && cnt[res.back() - 'a'] > 0) {
+                used[res.back() - 'a'] = 0;
+                res.pop_back();
+            }
+            res.push_back(ch);
+        }
+        return res;
+    }
+    /* Time Limit Exceeded
+    string smallestSubsequence(string text) {
+        set<string> ss={""};
+        int size=0;
+        helper(text,ss,size);
+        for(auto x:ss){
+            //cout<<size<<endl;
+            if(size==x.size())
+                return x;
+            //cout<<x<<endl;
+        }
+        return "";
+    }
+    void helper(string str, set<string>& ss, int& size){
+        //cout<<str<<":"<<str.size()<<endl;
+        if(str.size()==0)
+            return;
+        set<string> tmp=ss;
+        for(set<string>::iterator it=tmp.begin();it!=tmp.end();it++){
+            if(it->find(str[0])==std::string::npos){
+                ss.insert(*it+str[0]);
+                int newsize=it->size()+1;
+                size=max(size,newsize);
+            } 
+            //cout<<*it+str[0]<<endl;
+        }
+        helper(string(str.begin()+1,str.end()),ss,size);
+    }*/
+};
