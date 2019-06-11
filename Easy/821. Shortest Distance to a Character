@@ -1,0 +1,23 @@
+class Solution {
+public:
+    //Time Complexity: O(N), N is the length of S.
+    //Space Complexity: O(N), the size of ans.
+    vector<int> shortestToChar(string S, char C) {
+        vector<int> v;
+        v.push_back(-10000);
+        for(int i=0;i<S.size();i++){
+            if(S[i]==C)
+                v.push_back(i);
+        }
+        v.push_back(10000);
+
+        vector<int> r;
+        int idx=1;
+        for(int i=0;i<S.size();i++){
+            if(v[idx]==i)
+                idx++;
+            r.push_back(min(i-v[idx-1],v[idx]-i));
+        }
+        return r;
+    }
+};
