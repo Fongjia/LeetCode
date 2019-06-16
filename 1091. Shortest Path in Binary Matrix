@@ -1,0 +1,78 @@
+class Solution {
+public:
+    int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
+        int r=grid.size();
+        int c=grid[0].size();
+        int path=0;
+        queue<vector<int>> q;
+        if(grid[0][0]==1||grid[r-1][c-1]==1)
+            return -1;
+        q.push({0,0});
+        while(q.empty()!=true){
+            path++;
+            queue<vector<int>> tmp=q;
+            q={};
+            while(tmp.empty()!=true){
+                vector<int> q1=tmp.front();
+                tmp.pop();
+                if(q1[0]<0||q1[1]<0||q1[0]>r-1||q1[1]>c-1||grid[q1[0]][q1[1]]==1)
+                    continue;
+                grid[q1[0]][q1[1]]=1;
+                if(q1[0]==r-1&&q1[1]==c-1)
+                    return path;
+                for(int i=-1;i<2;i++){
+                    for(int j=-1;j<2;j++){
+                        int x=q1[0]+i;
+                        int y=q1[1]+j;
+                        if(i==0 && j==0)
+                            continue;
+                        //cout<<"("<<x<<","<<y<<")";
+                        q.push({x,y});
+                    }
+                }
+                //cout<<endl;
+            }          
+        }
+        return -1;
+    }
+/*
+public:
+    int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
+        helper(0,0,grid,{});
+        if(path==INT_MAX)
+            return -1;
+        return path;
+    }
+private:
+    int path=INT_MAX;
+    void helper(int i,int j,vector<vector<int>>& grid,set<vector<int>> spath){
+        if(i<0||j<0||i>grid.size()-1||j>grid[0].size()-1)
+            return;
+       
+        if(grid[i][j]!=0)
+            return;
+       
+        pair<set<vector<int>>::iterator,bool> ret=spath.insert({i,j});
+        if(ret.second==false)
+            return;    
+       
+        if(i==grid.size()-1 && j==grid[0].size()-1){
+            for(set<vector<int>>::iterator it=spath.begin();it!=spath.end();it++)
+                cout<<"("<<(*it)[0]<<","<<(*it)[1]<<")";
+            cout<<endl;
+            int s=spath.size();
+            path=min(path,s);
+        }
+       
+        helper(i-1,j-1,grid,spath);
+        helper(i-1,j,grid,spath);
+        helper(i-1,j+1,grid,spath);
+        helper(i,j+1,grid,spath);
+        helper(i+1,j+1,grid,spath);
+        helper(i+1,j,grid,spath);
+        helper(i+1,j-1,grid,spath);
+        helper(i,j-1,grid,spath);
+       
+    }
+*/
+};
