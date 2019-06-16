@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int largestValsFromLabels(vector<int>& values, vector<int>& labels, int num_wanted, int use_limit) {
+        vector<vector<int>> lv;
+        map<int,int> ml;
+        map<int,int> mu;
+        for(int i=0;i<values.size();i++){
+            lv.push_back({labels[i],values[i]});
+            ml[labels[i]]++;
+            mu[labels[i]]=0;
+        }
+        sort(lv.begin(),lv.end(),sortByValues);
+        int sum=0;
+        for(int i=0;i<values.size();i++){
+            if(ml[lv[i][0]]>0 && mu[lv[i][0]]<use_limit){
+                sum+=lv[i][1];
+                ml[lv[i][0]]--;
+                mu[lv[i][0]]++;
+                num_wanted--;
+                if(num_wanted==0)
+                    break;
+            }
+        }
+        return sum;
+    }
+    static bool sortByValues(vector<int>& a, vector<int>& b){
+        return a[1] > b[1];
+    }
+};
