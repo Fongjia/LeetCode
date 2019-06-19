@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int firstUniqChar(string s) {
+        map<char,int> nm;
+        for(auto l:s){
+            nm[l]++;
+        }
+        int p=s.size();
+        for (map<char,int>::iterator it=nm.begin(); it!=nm.end(); ++it){
+            if(it->second==1)
+                p=min(p,(int)s.find(it->first));
+        }
+        if(p!=s.size())
+            return p;
+        return -1;
+    }
+};
