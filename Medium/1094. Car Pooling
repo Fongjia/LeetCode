@@ -1,0 +1,16 @@
+class Solution {
+public:
+    bool carPooling(vector<vector<int>>& trips, int capacity) {
+        int roads[1001]={0};
+        for(auto t:trips){
+            roads[t[1]]+=t[0];
+            roads[t[2]]-=t[0];
+        }
+        for(auto r:roads){
+            capacity-=r;
+            if(capacity<0)
+                return false;
+        }
+        return true;
+    }
+};
