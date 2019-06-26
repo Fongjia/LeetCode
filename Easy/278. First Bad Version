@@ -1,0 +1,55 @@
+//Template I
+//Time Complexity: O(logN)
+//Space Complexity: O(1)
+
+// Forward declaration of isBadVersion API.
+bool isBadVersion(int version);
+
+class Solution {
+public:
+    int firstBadVersion(int n) {
+        int L=1,R=n;
+        while(L<=R){
+            int M=L+(R-L)/2;
+            if(isBadVersion(1)==true)
+                return 1;
+            if(isBadVersion(M)==true&&isBadVersion(M-1)==false)
+                return M;
+            else if(isBadVersion(M)==false)
+                L=M+1;
+            else
+                R=M-1;
+        }
+        return -1;
+    }
+};
+
+
+
+//Template II
+//Time Complexity: O(logN)
+//Space Complexity: O(1)
+
+// Forward declaration of isBadVersion API.
+bool isBadVersion(int version);
+
+class Solution {
+public:
+    int firstBadVersion(int n) {
+        int L=1,R=n;
+        while(L<R){
+            int M=L+(R-L)/2;
+            if(isBadVersion(1)==true)
+                return 1;
+            if(isBadVersion(M)==true&&isBadVersion(M-1)==false)
+                return M;
+            else if(isBadVersion(M)==false)
+                L=M+1;
+            else
+                R=M;
+        }
+        if(isBadVersion(L)==true&&L==R)
+            return L;
+        return -1;
+    }
+};
