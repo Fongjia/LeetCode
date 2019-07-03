@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<int> pathInZigZagTree(int label) {
+        if(label==1)
+            return {1};
+        //odd: 2^(n-1) ~ 2^n-1
+        //even:2^n-1 ~ 2^n-2^(n-1)
+        int level=0;
+        for(int i=1,sum=0;sum<label;sum+=pow(2,i-1),i++){
+            level=i;
+            cout<<level<<endl;
+        }
+        vector<int> r;
+        r.push_back(label);
+        for(int i=level-1;i>0;i--){
+            if(i%2==1)
+                label=pow(2,i-1)+(abs(label-(int)pow(2,i+1)+1)/2),r.push_back(label);
+            else
+                label=pow(2,i)-1-(abs(label-(int)pow(2,i))/2),r.push_back(label);
+        }
+        reverse(r.begin(),r.end());
+        return r;
+    }
+};

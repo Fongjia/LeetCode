@@ -1,0 +1,13 @@
+class Solution {
+public:
+    vector<int> distributeCandies(int candies, int num_people) {
+        vector<int> r(num_people,0);
+        for(int i=1,sum=0,rounds=1;sum<=candies;sum+=i,i++,rounds++){
+            if(candies-sum<i)
+                r[(rounds-1)%num_people]+=candies-sum;
+            else
+                r[(rounds-1)%num_people]+=i;
+        }
+        return r;
+    }
+};
